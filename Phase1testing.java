@@ -124,40 +124,36 @@ public class Phase1testing
             for (int i = 0; i < 4; i++)
                 IR[i] = M[IC][i];
             IC++;
-            String first2char;
-//            if (IR[1] != '-')
-//                first2char = "" + IR[0] + IR[1];
-//            else
-//                first2char = "" + IR[0];
+            String opcode;
 
             if (IR[1] == ' ')
-                first2char = "" + IR[0];
+                opcode = "" + IR[0];
             else
-                first2char = "" + IR[0] + IR[1];
+                opcode = "" + IR[0] + IR[1];
 
 
 
-            int index = 0;
+            int operand = 0;
             if (IR[1] != ' ')
             {
                 String s = "" + IR[2] + IR[3];
-                index = Integer.parseInt(s);
+                operand = Integer.parseInt(s);
             }
-            switch (first2char)
+            switch (opcode)
             {
                 case "LR":
                     for (int i = 0; i < 4; i++)
-                        R[i] = M[index][i];
+                        R[i] = M[operand][i];
                     break;
                 case "SR":
                     for (int i = 0; i < 4; i++)
-                        M[index][i] = R[i];
+                        M[operand][i] = R[i];
                     break;
                 case "CR":
                     boolean flag = true;
                     for (int i = 0; i < 4; i++)
                     {
-                        if (M[index][i] != R[i])
+                        if (M[operand][i] != R[i])
                         {
                             flag = false;
                             break;
