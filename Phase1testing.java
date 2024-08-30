@@ -17,7 +17,7 @@ public class Phase1testing
     private static boolean flag2;
     private static Scanner scanner;
 
-    private static void Init()
+    private static void INIT()
     {
         for(char[]rowInMemory:M)
             Arrays.fill(rowInMemory,'-');
@@ -35,14 +35,16 @@ public class Phase1testing
         indexForM = 0;
     }
 
-    private static void Read()
+    private static void READ()
     {
         IR[3] = '0';
         buffer = scanner.nextLine();
         char[] array = buffer.toCharArray();
         int indexForarray = 0;
         boolean flag = false;
-        for(int i = Integer.parseInt(""+IR[2]+IR[3]);i < ((Integer.parseInt(""+IR[2]+IR[3]))+10) ;i++)
+        int startingAddress = Integer.parseInt(""+IR[2]+IR[3]);
+        int endingAddress = startingAddress + 10;
+        for(int i = startingAddress;i < endingAddress ;i++)
         {
             for(int j = 0 ; j < 4;j++)
             {
@@ -59,11 +61,13 @@ public class Phase1testing
         }
     }
 
-    private static void Write()
+    private static void WRITE()
     {
         IR[3] = '0';
         StringBuilder sb = new StringBuilder();
-        for(int i = Integer.parseInt(""+IR[2]+IR[3]); i < ((Integer.parseInt(""+IR[2]+IR[3]))+ 10);i++)
+        int startingAddress = Integer.parseInt(""+IR[2]+IR[3]);
+        int endingAddress = startingAddress+10;
+        for(int i = startingAddress; i < endingAddress;i++)
         {
             for(int j = 0 ; j < 4 ; j++)
             {
@@ -85,7 +89,7 @@ public class Phase1testing
         }
     }
 
-    private static void Terminate()
+    private static void TERMINATE()
     {
         try
         {
@@ -105,18 +109,18 @@ public class Phase1testing
         switch(SI)
         {
             case 1:
-                Phase1testing.Read();
+                Phase1testing.READ();
                 break;
             case 2:
-                Phase1testing.Write();
+                Phase1testing.WRITE();
                 break;
             case 3:
-                Phase1testing.Terminate();
+                Phase1testing.TERMINATE();
                 break;
         }
     }
 
-    private static void ExecuteUserProgram()
+    private static void EXECUTEUSERPROGRAM()
     {
         while(true)
         {
@@ -150,16 +154,15 @@ public class Phase1testing
                         M[operand][i] = R[i];
                     break;
                 case "CR":
-                    boolean flag = true;
+                    C = true;
                     for (int i = 0; i < 4; i++)
                     {
                         if (M[operand][i] != R[i])
                         {
-                            flag = false;
+                            C = false;
                             break;
                         }
                     }
-                    C = flag;
                     break;
                 case "BT":
                     if (C)
@@ -181,96 +184,58 @@ public class Phase1testing
         }
     }
 
-    private static void StartExecution()
+    private static void STARTEXECUTION()
     {
         IC = 0;
-        Phase1testing.ExecuteUserProgram();
+        Phase1testing.EXECUTEUSERPROGRAM();
     }
 
-    private static void Load()
+    private static void LOAD()
     {
         while(scanner.hasNextLine())
         {
             buffer = scanner.nextLine();
-            if (buffer.length() >= 4)
+            String first4CharOfInputLine = buffer.substring(0, 4);
+            if (first4CharOfInputLine.equals("$AMJ"))
             {
-                String first4char = buffer.substring(0, 4);
-                if (first4char.equals("$AMJ"))
-                {
-                    flag1 = true;
-                }
-                else if (first4char.equals("$DTA"))
-                {
-                    Phase1testing.StartExecution();
-                    flag1 = true;
-                }
-                else if (first4char.equals("$END"))
-                {
-                    for(int k = 0 ; k < M.length ; k++)
-                        System.out.println(k+":"+Arrays.toString(M[k]));
-                    System.out.println("-".repeat(83)+"Job Over"+"-".repeat(83));
-                    Phase1testing.Init();
-                    flag1=true;
-                }
-                if (!flag1)
-                {
-                    char[] arrayOfBuffer = buffer.toCharArray();
-                    int indexForArrayOfBuffer = 0;
-                    int i = indexForM, j;
-                    while(true)
-                    {
-                        for (j = 0; j < 4; j++)
-                        {
-                            M[i][j] = arrayOfBuffer[indexForArrayOfBuffer];
-                            indexForArrayOfBuffer++;
-                            if (indexForArrayOfBuffer >= arrayOfBuffer.length)
-                            {
-                                flag2 = true;
-                                break;
-                            }
-                        }
-                        if (flag2)
-                            break;
-                        i++;
-                    }
-
-                    indexForM = i;
-
-                    if (indexForM < 10)
-                        indexForM = 10;
-                    else if (indexForM < 20)
-                        indexForM = 20;
-                    else if (indexForM < 30)
-                        indexForM = 30;
-                    else if (indexForM < 40)
-                        indexForM = 40;
-                    else if (indexForM < 50)
-                        indexForM = 50;
-                    else if (indexForM < 60)
-                        indexForM = 60;
-                    else if (indexForM < 70)
-                        indexForM = 70;
-                    else if(indexForM < 80)
-                        indexForM = 80;
-                    else if(indexForM < 90)
-                        indexForM = 90;
-                    else
-                    {
-                        System.out.println("No space, out of memory\nExiting......");
-                        System.exit(1);
-                    }
-                }
+                flag1 = true;
             }
-            else
+            else if (first4CharOfInputLine.equals("$DTA"))
+            {
+                Phase1testing.STARTEXECUTION();
+                flag1 = true;
+            }
+            else if (first4CharOfInputLine.equals("$END"))
+            {
+                for(int k = 0 ; k < M.length ; k++)
+                    System.out.println(k+":"+Arrays.toString(M[k]));
+                System.out.println("-".repeat(83)+"Job Over"+"-".repeat(83));
+                Phase1testing.INIT();
+                flag1=true;
+            }
+            if (!flag1)
             {
                 char[] arrayOfBuffer = buffer.toCharArray();
-                int j = indexForM;
-                for(int i = 0; i < arrayOfBuffer.length ; i++)
+                int indexForArrayOfBuffer = 0;
+                int i = indexForM, j;
+                while(true)
                 {
-                    M[j][i] = arrayOfBuffer[i];
-                    if(i == 0)
-                        indexForM++;
+                    for (j = 0; j < 4; j++)
+                    {
+                        M[i][j] = arrayOfBuffer[indexForArrayOfBuffer];
+                        indexForArrayOfBuffer++;
+                        if (indexForArrayOfBuffer >= arrayOfBuffer.length)
+                        {
+                            flag2 = true;
+                            break;
+                        }
+                    }
+                    if (flag2)
+                        break;
+                    i++;
                 }
+
+                indexForM = i;
 
                 if (indexForM < 10)
                     indexForM = 10;
@@ -325,8 +290,8 @@ public class Phase1testing
         }
 
 
-        Phase1testing.Init();
-        Phase1testing.Load();
+        Phase1testing.INIT();
+        Phase1testing.LOAD();
 
         try
         {
