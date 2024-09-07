@@ -154,15 +154,17 @@ public class Phase1testing
                         M[operand][i] = R[i];
                     break;
                 case "CR":
-                    C = true;
+                    C = false;
+                    int count = 0;
                     for (int i = 0; i < 4; i++)
                     {
                         if (M[operand][i] != R[i])
-                        {
-                            C = false;
                             break;
-                        }
+                        else
+                            count++;
                     }
+                    if(count == 4)
+                        C = true;
                     break;
                 case "BT":
                     if (C)
@@ -235,27 +237,10 @@ public class Phase1testing
                     i++;
                 }
 
+                i++;
                 indexForM = i;
 
-                if (indexForM < 10)
-                    indexForM = 10;
-                else if (indexForM < 20)
-                    indexForM = 20;
-                else if (indexForM < 30)
-                    indexForM = 30;
-                else if (indexForM < 40)
-                    indexForM = 40;
-                else if (indexForM < 50)
-                    indexForM = 50;
-                else if (indexForM < 60)
-                    indexForM = 60;
-                else if (indexForM < 70)
-                    indexForM = 70;
-                else if(indexForM < 80)
-                    indexForM = 80;
-                else if(indexForM < 90)
-                    indexForM = 90;
-                else
+                if(indexForM == 100)
                 {
                     System.out.println("No space, out of memory\nExiting......");
                     System.exit(1);
