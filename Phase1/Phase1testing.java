@@ -253,7 +253,7 @@ public class Phase1testing
 
     public static void main(String[] args)
     {
-        File file = new File("E:\\Programming\\OSProject\\src\\OSinputFile1Phase1.txt");
+        File file = new File("E:\\Programming\\OSProject\\src\\Phase1\\OSinputFile1Phase1.txt");
         try
         {
             scanner = new Scanner(file);
@@ -266,7 +266,7 @@ public class Phase1testing
 
         try
         {
-            filewriter = new FileWriter("E:\\Programming\\OSProject\\src\\OSoutputFile1Phase1.txt");
+            filewriter = new FileWriter("E:\\Programming\\OSProject\\src\\Phase1\\OSoutputFile1Phase1.txt");
         }
         catch(Exception e)
         {
