@@ -23,14 +23,6 @@ Welcome to the *Multiprogramming Operating System* project! 🎉 This project si
 - *Job Execution Management*: Executes jobs based on instructions, including handling read and write operations, managing timers and tracking execution progress.
 - *System Status Reporting*: Logs detailed information about system status, including timers, line counts and error codes, to provide insights into job execution and system performance.
 
-### Phase 3: Advanced Job Handling 🛠
-
-*Description*: The final phase introduces more sophisticated job handling mechanisms, including multi-job processing and improved data management. This phase ensures smooth execution of multiple jobs with efficient resource utilization.
-
-*Key Features*:
-- *Multi-Job Processing*: Supports running multiple jobs concurrently.
-- *Enhanced Data Management*: Improves handling of data and job instructions for better performance and reliability.
-
 ## Getting Started
 
 To get started with this project:
